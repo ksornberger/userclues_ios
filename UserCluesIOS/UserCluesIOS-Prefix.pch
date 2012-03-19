@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'UserCluesIOS' target in the 'UserCluesIOS' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif
