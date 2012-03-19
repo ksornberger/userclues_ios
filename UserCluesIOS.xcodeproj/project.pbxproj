@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		0A833EB71517B03D000BECBB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A833EB61517B03D000BECBB /* Foundation.framework */; };
-		0A833EBD1517B03D000BECBB /* UserCluesIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A833EBC1517B03D000BECBB /* UserCluesIOS.m */; };
+		0A833EBD1517B03D000BECBB /* UserClues.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A833EBC1517B03D000BECBB /* UserClues.m */; };
 		0A833EC51517B03D000BECBB /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A833EC41517B03D000BECBB /* SenTestingKit.framework */; };
 		0A833EC71517B03D000BECBB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A833EC61517B03D000BECBB /* UIKit.framework */; };
 		0A833EC81517B03D000BECBB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A833EB61517B03D000BECBB /* Foundation.framework */; };
 		0A833ECB1517B03D000BECBB /* libUserCluesIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A833EB31517B03D000BECBB /* libUserCluesIOS.a */; };
 		0A833ED11517B03D000BECBB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A833ECF1517B03D000BECBB /* InfoPlist.strings */; };
 		0A833ED41517B03D000BECBB /* UserCluesIOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A833ED31517B03D000BECBB /* UserCluesIOSTests.m */; };
+		0A833EE51517C19B000BECBB /* UserClues+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A833EE41517C19B000BECBB /* UserClues+Private.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,16 +31,17 @@
 /* Begin PBXFileReference section */
 		0A833EB31517B03D000BECBB /* libUserCluesIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libUserCluesIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A833EB61517B03D000BECBB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		0A833EBA1517B03D000BECBB /* UserCluesIOS-Prefix.pch */ = {isa = PBXFileReference; path = "UserCluesIOS-Prefix.pch"; sourceTree = "<group>"; };
-		0A833EBB1517B03D000BECBB /* UserCluesIOS.h */ = {isa = PBXFileReference; path = UserCluesIOS.h; sourceTree = "<group>"; };
-		0A833EBC1517B03D000BECBB /* UserCluesIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserCluesIOS.m; sourceTree = "<group>"; };
+		0A833EBA1517B03D000BECBB /* UserCluesIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UserCluesIOS-Prefix.pch"; sourceTree = "<group>"; };
+		0A833EBB1517B03D000BECBB /* UserClues.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserClues.h; sourceTree = "<group>"; };
+		0A833EBC1517B03D000BECBB /* UserClues.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserClues.m; sourceTree = "<group>"; };
 		0A833EC31517B03D000BECBB /* UserCluesIOSTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UserCluesIOSTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A833EC41517B03D000BECBB /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		0A833EC61517B03D000BECBB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		0A833ECE1517B03D000BECBB /* UserCluesIOSTests-Info.plist */ = {isa = PBXFileReference; path = "UserCluesIOSTests-Info.plist"; sourceTree = "<group>"; };
+		0A833ECE1517B03D000BECBB /* UserCluesIOSTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UserCluesIOSTests-Info.plist"; sourceTree = "<group>"; };
 		0A833ED01517B03D000BECBB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0A833ED21517B03D000BECBB /* UserCluesIOSTests.h */ = {isa = PBXFileReference; path = UserCluesIOSTests.h; sourceTree = "<group>"; };
+		0A833ED21517B03D000BECBB /* UserCluesIOSTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserCluesIOSTests.h; sourceTree = "<group>"; };
 		0A833ED31517B03D000BECBB /* UserCluesIOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserCluesIOSTests.m; sourceTree = "<group>"; };
+		0A833EE41517C19B000BECBB /* UserClues+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UserClues+Private.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,8 +99,9 @@
 		0A833EB81517B03D000BECBB /* UserCluesIOS */ = {
 			isa = PBXGroup;
 			children = (
-				0A833EBB1517B03D000BECBB /* UserCluesIOS.h */,
-				0A833EBC1517B03D000BECBB /* UserCluesIOS.m */,
+				0A833EE41517C19B000BECBB /* UserClues+Private.h */,
+				0A833EBB1517B03D000BECBB /* UserClues.h */,
+				0A833EBC1517B03D000BECBB /* UserClues.m */,
 				0A833EB91517B03D000BECBB /* Supporting Files */,
 			);
 			path = UserCluesIOS;
@@ -138,6 +141,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A833EE51517C19B000BECBB /* UserClues+Private.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,7 +243,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A833EBD1517B03D000BECBB /* UserCluesIOS.m in Sources */,
+				0A833EBD1517B03D000BECBB /* UserClues.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
