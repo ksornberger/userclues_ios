@@ -16,6 +16,10 @@
 		0A833ED11517B03D000BECBB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A833ECF1517B03D000BECBB /* InfoPlist.strings */; };
 		0A833ED41517B03D000BECBB /* UserCluesIOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A833ED31517B03D000BECBB /* UserCluesIOSTests.m */; };
 		0A833EE51517C19B000BECBB /* UserClues+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A833EE41517C19B000BECBB /* UserClues+Private.h */; };
+		0A833EE91517E7B8000BECBB /* API.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A833EE71517E7B8000BECBB /* API.h */; };
+		0A833EEA1517E7B8000BECBB /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A833EE81517E7B8000BECBB /* API.m */; };
+		0A833EED151825E2000BECBB /* Routes.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A833EEB151825E2000BECBB /* Routes.h */; };
+		0A833EEE151825E2000BECBB /* Routes.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A833EEC151825E2000BECBB /* Routes.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +46,10 @@
 		0A833ED21517B03D000BECBB /* UserCluesIOSTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserCluesIOSTests.h; sourceTree = "<group>"; };
 		0A833ED31517B03D000BECBB /* UserCluesIOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserCluesIOSTests.m; sourceTree = "<group>"; };
 		0A833EE41517C19B000BECBB /* UserClues+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UserClues+Private.h"; sourceTree = "<group>"; };
+		0A833EE71517E7B8000BECBB /* API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = API.h; sourceTree = "<group>"; };
+		0A833EE81517E7B8000BECBB /* API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = API.m; sourceTree = "<group>"; };
+		0A833EEB151825E2000BECBB /* Routes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Routes.h; sourceTree = "<group>"; };
+		0A833EEC151825E2000BECBB /* Routes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Routes.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,10 +107,14 @@
 		0A833EB81517B03D000BECBB /* UserCluesIOS */ = {
 			isa = PBXGroup;
 			children = (
+				0A833EE71517E7B8000BECBB /* API.h */,
+				0A833EE81517E7B8000BECBB /* API.m */,
 				0A833EE41517C19B000BECBB /* UserClues+Private.h */,
 				0A833EBB1517B03D000BECBB /* UserClues.h */,
 				0A833EBC1517B03D000BECBB /* UserClues.m */,
 				0A833EB91517B03D000BECBB /* Supporting Files */,
+				0A833EEB151825E2000BECBB /* Routes.h */,
+				0A833EEC151825E2000BECBB /* Routes.m */,
 			);
 			path = UserCluesIOS;
 			sourceTree = "<group>";
@@ -142,6 +154,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A833EE51517C19B000BECBB /* UserClues+Private.h in Headers */,
+				0A833EE91517E7B8000BECBB /* API.h in Headers */,
+				0A833EED151825E2000BECBB /* Routes.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,6 +258,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A833EBD1517B03D000BECBB /* UserClues.m in Sources */,
+				0A833EEA1517E7B8000BECBB /* API.m in Sources */,
+				0A833EEE151825E2000BECBB /* Routes.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

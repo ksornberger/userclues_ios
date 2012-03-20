@@ -17,11 +17,13 @@
 
 
 
+
 /*
  * Returns the singleton istance of the UserClues reporting object. Will also start the necessary session related 
  * data if a session has not already been initialized.
  */
 +(UserClues *)start;
++(void)log:(NSString *)msg;
 
 
 

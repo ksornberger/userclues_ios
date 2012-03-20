@@ -10,13 +10,20 @@
 
 @implementation API
 
-static API instance = nil;
+static API *instance = nil;
 
-+(API)instance{
++(API *)instance{
     if (!instance){
         instance = [[[API alloc] init] autorelease];
     }
     return instance;
+}
+
+-(void)sessionCreate{
+    //[self log:@"Starting session synchronously"];
+    NSDictionary *data = [[NSDictionary alloc] init];
+    
+    
 }
 
 @end

@@ -8,6 +8,9 @@
 
 #import "UserClues.h"
 #import "UserClues+Private.h"
+#import "API.h"
+
+#define USER_CLUES_VERSION_NUM @"1.0"
 
 
 @implementation UserClues
@@ -38,11 +41,9 @@ static UserClues * uc = nil;
 
 #pragma mark Private Functions
 
--(void)sessionCreate{
-    
-}
 
--(void)log:(NSString *)msg{
+
++(void)log:(NSString *)msg{
     //TODO: Improve the logging mechanism
     if(kUCDebugLogging){
         NSLog(@"-- UserClues: %@", msg);
