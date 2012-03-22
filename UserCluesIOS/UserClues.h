@@ -11,6 +11,10 @@
 // Custom configuration flags
 #define kUCDebugLogging YES
 
+// Flag to determine whether or not UserClues will register a global exception handler to report unhandled exceptions
+// and debug information to the server for later analysis.
+#define kUCHandleExceptions YES
+
 @interface UserClues : NSObject {
 
 }

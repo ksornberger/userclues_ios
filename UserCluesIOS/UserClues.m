@@ -9,13 +9,18 @@
 #import "UserClues.h"
 #import "UserClues+Private.h"
 #import "API.h"
+#import "Routes.h"
+#import "ExceptionHandler.h"
 
 #define USER_CLUES_VERSION_NUM @"1.0"
+
 
 
 @implementation UserClues
 
 static UserClues * uc = nil;
+ExceptionHandler *exceptionHandler = nil;
+
 
 
 - (id)init
@@ -32,7 +37,13 @@ static UserClues * uc = nil;
 +(UserClues *)start{
     if (nil == uc){
         uc = [[UserClues alloc] init];
-        [uc sessionCreate];
+        [[API instance] sessionCreate];
+        
+        //Set up global exception handling?
+        if (kUCHandleExceptions){
+            if (!exceptionHandler)
+                exceptionHandler = [[ExceptionHandler alloc] init];
+        }
     }
     return uc;
 }
@@ -48,6 +59,12 @@ static UserClues * uc = nil;
     if(kUCDebugLogging){
         NSLog(@"-- UserClues: %@", msg);
     }
+}
+
+
+-(void)dealloc{
+    [exceptionHandler release];
+    [super dealloc];
 }
 
 

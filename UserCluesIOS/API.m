@@ -19,10 +19,9 @@ static API *instance = nil;
     return instance;
 }
 
--(void)sessionCreate{
+-(void)sessionCreate:(NSString *)apikey ucVersion:(NSString *)version{
     //[self log:@"Starting session synchronously"];
-    NSDictionary *data = [[NSDictionary alloc] init];
-    
+    NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys: version, @"version", nil];
     
 }
 

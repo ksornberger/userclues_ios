@@ -10,6 +10,10 @@
 
 @interface API : NSObject
 
--(void)sessionCreate;
++(API *)instance;
+
+-(void)sessionCreate:(NSString *)apikey ucVersion:(NSString *)version;
+-(void)sendRequest:(NSString *)url requestMethod:(NSString *)method delegate:(id)delegate data:(NSDictionary *)data;
+-(void)sendRequestAsync:(NSString *)url requestMethod:(NSString *)method delegate:(id)delegate data:(NSDictionary *)data;
 
 @end
