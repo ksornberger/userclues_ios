@@ -10,10 +10,11 @@
 
 @interface Routes : NSObject
 
-@property (nonatomic, readonly) NSString *sessionCreate;
-@property (nonatomic, readonly) NSString *sessionDestroy;
-@property (nonatomic, readonly) NSString *sessionUpdate;
-@property (nonatomic, readonly) NSString *eventCreate;
-@property (nonatomic, readonly) NSString *clientDiagnosticReportCreate;
++(NSString *)sessionCreate;
++(NSString *)sessionDestroy;
++(NSString *)sessionUpdate;
++(NSString *)eventCreate;
++(NSString *)clientDiagnosticReportCreate;
++(NSString *)host;
 
 @end

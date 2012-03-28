@@ -7,13 +7,37 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Routes.h"
+#import "SBJSON.h"
+#import "UCResponse.h"
 
-@interface API : NSObject
+@protocol UCAPIRequest
+-(void) didReceiveResponse:(NSString *)response responseCode:(NSInteger)code;
+@end
 
-+(API *)instance;
+@interface API : NSObject{
+    UCResponse *response;
+    @private
+    NSString *apiKey;
+    NSString *version;
+}
 
--(void)sessionCreate:(NSString *)apikey ucVersion:(NSString *)version;
+@property (nonatomic, retain) UCResponse *response;
+
+//+(API *)instance;
+-(id)initWithAPIKeyAndVersion:(NSString *)apikey ucVersion:(NSString *)ver;
+
+//-(void)sessionCreate:(NSString *)apikey ucVersion:(NSString *)version;
+-(void)sessionCreate;
 -(void)sendRequest:(NSString *)url requestMethod:(NSString *)method delegate:(id)delegate data:(NSDictionary *)data;
 -(void)sendRequestAsync:(NSString *)url requestMethod:(NSString *)method delegate:(id)delegate data:(NSDictionary *)data;
+
+// NSURLConnection delegate methods:
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data;
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error;
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection;
+
+
 
 @end

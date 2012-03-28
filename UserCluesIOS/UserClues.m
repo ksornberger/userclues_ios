@@ -8,17 +8,16 @@
 
 #import "UserClues.h"
 #import "UserClues+Private.h"
-#import "API.h"
 #import "Routes.h"
 #import "ExceptionHandler.h"
 
-#define USER_CLUES_VERSION_NUM @"1.0"
-
+//#define USER_CLUES_VERSION_NUM @"1.0"
+NSString *userCluesVersionNum = @"1.0";
 
 
 @implementation UserClues
 
-static UserClues * uc = nil;
+static UserClues *uc = nil;
 ExceptionHandler *exceptionHandler = nil;
 
 
@@ -37,8 +36,9 @@ ExceptionHandler *exceptionHandler = nil;
 +(UserClues *)start{
     if (nil == uc){
         uc = [[UserClues alloc] init];
-        [[API instance] sessionCreate];
-        
+        API *sessionRequest = [[API alloc] initWithAPIKeyAndVersion:apiKey ucVersion:userCluesVersionNum];
+        //[[API instance] sessionCreate:apiKey ucVersion:userCluesVersionNum];
+        [sessionRequest sessionCreate];
         //Set up global exception handling?
         if (kUCHandleExceptions){
             if (!exceptionHandler)
@@ -66,6 +66,13 @@ ExceptionHandler *exceptionHandler = nil;
     [exceptionHandler release];
     [super dealloc];
 }
+
+
+#pragma mark -
+-(void) didReceiveResponse:(NSString *)response responseCode:(NSInteger)code{
+    
+}
+
 
 
 @end

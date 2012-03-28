@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "API.h"
+
 
 // Custom configuration flags
 #define kUCDebugLogging YES
@@ -15,7 +17,10 @@
 // and debug information to the server for later analysis.
 #define kUCHandleExceptions YES
 
-@interface UserClues : NSObject {
+NSString *apiKey = @"5d3ac439306a4a5c987ce9afc41c76e8";
+
+
+@interface UserClues : NSObject <UCAPIRequest> {
 
 }
 
