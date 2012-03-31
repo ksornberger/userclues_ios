@@ -19,6 +19,7 @@
 @synthesize apiKey;
 @synthesize version;
 @synthesize response;
+@synthesize callback;
 
 //static API *instance = nil;
 
@@ -85,8 +86,10 @@ NSTimeInterval const TIMEOUT_SECONDS = 15.0;
     [super dealloc];
 }
 
+
 #pragma mark -
 //-(void)sessionCreate:(NSString *)apikey ucVersion:(NSString *)version{
+/*
 -(void)sessionCreate{
 
     //[self log:@"Starting session synchronously"];
@@ -95,7 +98,7 @@ NSTimeInterval const TIMEOUT_SECONDS = 15.0;
     
     [self sendRequestAsync:[Routes sessionCreate] requestMethod:@"POST" delegate:self data:data];
 }
-
+*/
 
 #pragma mark -
 #pragma mark Server Requests
@@ -107,6 +110,9 @@ NSTimeInterval const TIMEOUT_SECONDS = 15.0;
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:TIMEOUT_SECONDS];
     [req setHTTPMethod:method];
     [req setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    self.callback = delegate;
+    
     if (data){
         const char *bytes = [[data JSONRepresentation] UTF8String];
         [req setHTTPBody:[NSData dataWithBytes:bytes length:strlen(bytes)]];
@@ -160,6 +166,8 @@ NSTimeInterval const TIMEOUT_SECONDS = 15.0;
     NSLog(@"Connection failed! Error - %@ %@",
           [error localizedDescription],
           [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+    
+    // TODO: Call Callback when error happens.
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
@@ -172,7 +180,8 @@ NSTimeInterval const TIMEOUT_SECONDS = 15.0;
     self.response.responseBody = responseString;
     NSLog(@"Received Data: %@", responseString);
     [responseString release];
-    
+
+    [callback didReceiveResponse:self.response.responseBody responseCode:self.response.responseCode];
     
     // release the connection, and the data object
     [connection release];

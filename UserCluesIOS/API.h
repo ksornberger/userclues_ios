@@ -17,18 +17,21 @@
 
 @interface API : NSObject{
     UCResponse *response;
+    id <UCAPIRequest> callback;
+
     @private
     NSString *apiKey;
     NSString *version;
 }
 
 @property (nonatomic, retain) UCResponse *response;
+@property (nonatomic, retain) id <UCAPIRequest> callback;
 
 //+(API *)instance;
 -(id)initWithAPIKeyAndVersion:(NSString *)apikey ucVersion:(NSString *)ver;
 
 //-(void)sessionCreate:(NSString *)apikey ucVersion:(NSString *)version;
--(void)sessionCreate;
+//-(void)sessionCreate;
 -(void)sendRequest:(NSString *)url requestMethod:(NSString *)method delegate:(id)delegate data:(NSDictionary *)data;
 -(void)sendRequestAsync:(NSString *)url requestMethod:(NSString *)method delegate:(id)delegate data:(NSDictionary *)data;
 

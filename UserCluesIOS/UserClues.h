@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "API.h"
+#import "Session.h"
 
 
 // Custom configuration flags
@@ -20,12 +20,12 @@
 NSString *apiKey = @"5d3ac439306a4a5c987ce9afc41c76e8";
 
 
-@interface UserClues : NSObject <UCAPIRequest> {
-
+@interface UserClues : NSObject {
+    Session *curSession;
 }
 
 
-
+@property (nonatomic, retain) Session *curSession;
 
 /*
  * Returns the singleton istance of the UserClues reporting object. Will also start the necessary session related 

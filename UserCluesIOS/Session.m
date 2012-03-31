@@ -18,6 +18,7 @@
 
 @synthesize req;
 @synthesize version;
+@synthesize sessionId;
 
 
 #pragma mark Constructor/Destructor
@@ -46,5 +47,13 @@
     [data release];
 }
 
+#pragma mark -
+-(void) didReceiveResponse:(NSString *)response responseCode:(NSInteger)code{
+    if (400 == code){
+        NSDictionary *responseDict = [response JSONValue];
+        self.sessionId = (NSInteger) [responseDict objectForKey:@"session_id"];
+    }
+    
+}
 
 @end

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A3947A115264A5700E1938A /* Event.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A39479F15264A5700E1938A /* Event.h */; };
+		0A3947A215264A5700E1938A /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3947A015264A5700E1938A /* Event.m */; };
+		0A3947A615278C8000E1938A /* EventQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A3947A415278C7F00E1938A /* EventQueue.h */; };
+		0A3947A715278C8000E1938A /* EventQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3947A515278C8000E1938A /* EventQueue.m */; };
 		0A47D14215215BAF00655ABD /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A47D12815215BAF00655ABD /* JSON.h */; };
 		0A47D14315215BAF00655ABD /* NSObject+SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A47D12915215BAF00655ABD /* NSObject+SBJson.h */; };
 		0A47D14415215BAF00655ABD /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A47D12A15215BAF00655ABD /* NSObject+SBJson.m */; };
@@ -65,6 +69,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A39479F15264A5700E1938A /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		0A3947A015264A5700E1938A /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		0A3947A415278C7F00E1938A /* EventQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventQueue.h; sourceTree = "<group>"; };
+		0A3947A515278C8000E1938A /* EventQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventQueue.m; sourceTree = "<group>"; };
 		0A47D12815215BAF00655ABD /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		0A47D12915215BAF00655ABD /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
 		0A47D12A15215BAF00655ABD /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
@@ -207,6 +215,10 @@
 				0A47D12615215B8B00655ABD /* lib */,
 				0A833EE71517E7B8000BECBB /* API.h */,
 				0A833EE81517E7B8000BECBB /* API.m */,
+				0A39479F15264A5700E1938A /* Event.h */,
+				0A3947A015264A5700E1938A /* Event.m */,
+				0A3947A415278C7F00E1938A /* EventQueue.h */,
+				0A3947A515278C8000E1938A /* EventQueue.m */,
 				0A833EF3151B61F0000BECBB /* ExceptionHandler.h */,
 				0A833EF4151B61F1000BECBB /* ExceptionHandler.m */,
 				0A833EEB151825E2000BECBB /* Routes.h */,
@@ -277,6 +289,8 @@
 				0A47D15A15215BAF00655ABD /* SBJsonWriter.h in Headers */,
 				0A47D1C71523977000655ABD /* UCResponse.h in Headers */,
 				0A47D1CB1523A0FE00655ABD /* Session.h in Headers */,
+				0A3947A115264A5700E1938A /* Event.h in Headers */,
+				0A3947A615278C8000E1938A /* EventQueue.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,6 +410,8 @@
 				0A47D15B15215BAF00655ABD /* SBJsonWriter.m in Sources */,
 				0A47D1C81523977000655ABD /* UCResponse.m in Sources */,
 				0A47D1CC1523A0FE00655ABD /* Session.m in Sources */,
+				0A3947A215264A5700E1938A /* Event.m in Sources */,
+				0A3947A715278C8000E1938A /* EventQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
