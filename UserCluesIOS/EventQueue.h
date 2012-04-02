@@ -13,7 +13,10 @@
     NSMutableArray *queue;
 }
 
+-(id)initWithSessionId:(NSInteger)sessionId;
 -(void)add:(Event *)event;
 -(void)flush;
+-(NSInteger)count;
+-(NSMutableArray *)data;
 
 @end

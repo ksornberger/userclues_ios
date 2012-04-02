@@ -23,7 +23,7 @@ static UserClues *uc = nil;
 ExceptionHandler *exceptionHandler = nil;
 
 @synthesize curSession;
-
+@synthesize queue;
 
 
 - (id)init
@@ -44,6 +44,9 @@ ExceptionHandler *exceptionHandler = nil;
         uc.curSession = [[Session alloc] initWithAPIKeyAndVersion:apiKey appVersion:userCluesVersionNum];
         [uc.curSession create];
         
+        // Initialize the event queue for this session
+        uc.queue = [[EventQueue alloc] initWithSessionId:uc.curSession.sessionId];
+        
         //Set up global exception handling?
         if (kUCHandleExceptions){
             if (!exceptionHandler)
@@ -51,6 +54,15 @@ ExceptionHandler *exceptionHandler = nil;
         }
     }
     return uc;
+}
+
+-(void)flush{
+    //TODO: Lock the flush operation here?
+    if ([self.queue count] >0 && self.curSession.sessionId > 0 && kUCIsRecording){
+        //TODO: Lock the event queue here?
+        NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys:[self.queue data], @"events", self.curSession, @"session", nil];
+        
+    }
 }
 
 

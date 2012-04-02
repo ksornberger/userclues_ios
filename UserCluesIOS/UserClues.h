@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Session.h"
+#import "EventQueue.h"
 
 
 // Custom configuration flags
@@ -19,9 +20,14 @@
 
 NSString *apiKey = @"5d3ac439306a4a5c987ce9afc41c76e8";
 
+// Flag to determine whether the application should be logging events to the UC Server (default is true)
+#define kUCIsRecording YES
+
 
 @interface UserClues : NSObject {
     Session *curSession;
+    @private
+    EventQueue *queue;
 }
 
 
@@ -33,6 +39,7 @@ NSString *apiKey = @"5d3ac439306a4a5c987ce9afc41c76e8";
  */
 +(UserClues *)start;
 +(void)log:(NSString *)msg;
+-(void)flush;
 
 
 
