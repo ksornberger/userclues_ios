@@ -60,8 +60,13 @@ ExceptionHandler *exceptionHandler = nil;
     //TODO: Lock the flush operation here?
     if ([self.queue count] >0 && self.curSession.sessionId > 0 && kUCIsRecording){
         //TODO: Lock the event queue here?
-        NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys:[self.queue data], @"events", self.curSession, @"session", nil];
+        [queue flush:self.curSession];
         
+        NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys:[self.queue data], @"events", self.curSession, @"session", nil];
+        API *req = [[API alloc] initWithAPIKeyAndVersion:apiKey ucVersion:userCluesVersionNum];
+        [req sendRequestAsync:[Routes eventCreate] requestMethod:@"POST" delegate:queue data:data];
+        [data release];
+
     }
 }
 

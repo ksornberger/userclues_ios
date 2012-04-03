@@ -8,14 +8,18 @@
 
 #import <Foundation/Foundation.h>
 #import "Event.h"
+//#import "Session.h"
+#import "API.h"
 
-@interface EventQueue : NSObject{
+@interface EventQueue : NSObject <UCAPIRequest>{
     NSMutableArray *queue;
+    @private
+    API *req;
 }
 
 -(id)initWithSessionId:(NSInteger)sessionId;
 -(void)add:(Event *)event;
--(void)flush;
+//-(void)flush:(Session *)session;
 -(NSInteger)count;
 -(NSMutableArray *)data;
 
