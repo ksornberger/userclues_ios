@@ -49,7 +49,7 @@
 
 #pragma mark -
 -(void) didReceiveResponse:(NSString *)response responseCode:(NSInteger)code{
-    if (400 == code){
+    if (200 == code){
         NSDictionary *responseDict = [response JSONValue];
         self.sessionId = (NSInteger) [responseDict objectForKey:@"session_id"];
     }

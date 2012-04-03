@@ -39,7 +39,7 @@ NSString *apiKey = @"5d3ac439306a4a5c987ce9afc41c76e8";
  */
 +(UserClues *)start;
 +(void)log:(NSString *)msg;
--(void)flush;
+//-(void)flush;
 
 /*
  Record events or errors after a session has been started
