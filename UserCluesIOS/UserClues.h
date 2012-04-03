@@ -41,6 +41,13 @@ NSString *apiKey = @"5d3ac439306a4a5c987ce9afc41c76e8";
 +(void)log:(NSString *)msg;
 -(void)flush;
 
+/*
+ Record events or errors after a session has been started
+ */
++(void)createEvent:(NSString *)eventName;
++(void)createEvent:(NSString *)eventName withData:(NSDictionary *)data;
++(void)flush;
+
 
 
 @end

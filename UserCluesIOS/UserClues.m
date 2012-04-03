@@ -56,15 +56,25 @@ ExceptionHandler *exceptionHandler = nil;
     return uc;
 }
 
--(void)flush{
++(void)createEvent:(NSString *)eventName{
+    //TODO Warn developer that a session hasn't been started
+    [UserClues createEvent:eventName withData:nil];
+}
+                
++(void)createEvent:(NSString *)eventName withData:(NSDictionary *)data{
+    Event *e = [[Event alloc] initWithNameAndData:eventName eventData:data];
+    [uc.queue add:e];
+    [e release];
+}
+
+
++(void)flush{
     //TODO: Lock the flush operation here?
-    if ([self.queue count] >0 && self.curSession.sessionId > 0 && kUCIsRecording){
-        //TODO: Lock the event queue here?
-        [queue flush:self.curSession];
-        
-        NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys:[self.queue data], @"events", self.curSession, @"session", nil];
+    if ([uc.queue count] >0 && uc.curSession.sessionId > 0 && kUCIsRecording){
+        //TODO: Lock the event queue here?        
+        NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys:[uc.queue data], @"events", uc.curSession, @"session", nil];
         API *req = [[API alloc] initWithAPIKeyAndVersion:apiKey ucVersion:userCluesVersionNum];
-        [req sendRequestAsync:[Routes eventCreate] requestMethod:@"POST" delegate:queue data:data];
+        [req sendRequestAsync:[Routes eventCreate] requestMethod:@"POST" delegate:uc.queue data:data];
         [data release];
 
     }
