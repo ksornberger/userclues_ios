@@ -55,8 +55,17 @@
 
 #pragma mark -
 -(void) didReceiveResponse:(NSString *)response responseCode:(NSInteger)code{
-    if (400 == code){
+    if (200 == code){
         NSDictionary *responseDict = [response JSONValue];
+        NSInteger affected = [[responseDict objectForKey:@"affected"] integerValue];
+        NSLog(@"Events recorded: %d", affected);
+        if (affected > 0){
+            NSLog(@"Queue Size Before Removal: %d", [queue count]);
+            NSRange processed = NSMakeRange(0, affected);
+            [queue removeObjectsInRange:processed];
+            NSLog(@"Queue Size After Removal: %d", [queue count]);
+
+        }
         
     }
     
