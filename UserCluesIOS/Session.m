@@ -51,9 +51,13 @@
 -(void) didReceiveResponse:(NSString *)response responseCode:(NSInteger)code{
     if (200 == code){
         NSDictionary *responseDict = [response JSONValue];
-        self.sessionId = (NSInteger) [responseDict objectForKey:@"session_id"];
+        self.sessionId = [[responseDict objectForKey:@"session_id"] integerValue];
+        NSLog(@"Session ID: %@", [responseDict objectForKey:@"session_id"]);
+        NSLog(@"Session ID Stored: %d", self.sessionId);
+        
     }
     
 }
+
 
 @end

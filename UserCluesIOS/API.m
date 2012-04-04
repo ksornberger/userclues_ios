@@ -114,6 +114,7 @@ NSTimeInterval const TIMEOUT_SECONDS = 15.0;
     self.callback = delegate;
     
     if (data){
+        NSLog(@"Data to send: %@\n", [data JSONRepresentation]);
         const char *bytes = [[data JSONRepresentation] UTF8String];
         [req setHTTPBody:[NSData dataWithBytes:bytes length:strlen(bytes)]];
     }

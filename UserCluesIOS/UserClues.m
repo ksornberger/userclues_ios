@@ -58,6 +58,7 @@ ExceptionHandler *exceptionHandler = nil;
 
 +(void)createEvent:(NSString *)eventName{
     //TODO Warn developer that a session hasn't been started
+    NSLog(@"Creating event with name: %@", eventName);
     [UserClues createEvent:eventName withData:nil];
 }
                 
@@ -72,7 +73,7 @@ ExceptionHandler *exceptionHandler = nil;
     //TODO: Lock the flush operation here?
     if ([uc.queue count] >0 && uc.curSession.sessionId > 0 && kUCIsRecording){
         //TODO: Lock the event queue here?        
-        NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys:[uc.queue data], @"events", uc.curSession, @"session", nil];
+        NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys:[uc.queue data], @"events", [NSNumber numberWithInt:uc.curSession.sessionId], @"session_id", nil];
         API *req = [[API alloc] initWithAPIKeyAndVersion:apiKey ucVersion:userCluesVersionNum];
         [req sendRequestAsync:[Routes eventCreate] requestMethod:@"POST" delegate:uc.queue data:data];
         [data release];

@@ -33,7 +33,7 @@
 }
 
 -(void)setDefaults{
-    self. isException = false;
+    self.isException = NO;
     self.loggedAt = [[NSDate date] timeIntervalSince1970];//[NSDate date];
     self.value = 1;
 }
@@ -46,16 +46,17 @@
                 [NSNumber numberWithInteger: self.value], @"value",
                 [NSNumber numberWithInteger:self.loggedAt] , @"logged_at",
                 self.data, @"data",
-                self.isException, @"is_exception",
                 self.featureName, @"feature_name",
+                [NSNumber numberWithInteger: self.isException], @"is_exception",
                 nil];
     else
         return [NSDictionary dictionaryWithObjectsAndKeys:
                 [NSNumber numberWithInteger: self.value], @"value",
                 [NSNumber numberWithInteger: self.loggedAt] , @"logged_at",
                 [[[NSDictionary alloc] init]autorelease], @"data",
-                self.isException, @"is_exception",
                 self.featureName, @"feature_name",
+                [NSNumber numberWithInteger: self.isException], @"is_exception",
+
                 nil];
 }
 

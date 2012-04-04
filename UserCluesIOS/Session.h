@@ -24,5 +24,4 @@
 
 -(void) didReceiveResponse:(NSString *)response responseCode:(NSInteger)code;
 
-
 @end
