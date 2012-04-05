@@ -16,7 +16,7 @@
 
 // Flag to determine whether or not UserClues will register a global exception handler to report unhandled exceptions
 // and debug information to the server for later analysis.
-#define kUCHandleExceptions YES
+#define kUCHandleExceptions NO
 
 NSString *apiKey = @"5d3ac439306a4a5c987ce9afc41c76e8";
 
@@ -38,8 +38,9 @@ NSString *apiKey = @"5d3ac439306a4a5c987ce9afc41c76e8";
  * data if a session has not already been initialized.
  */
 +(UserClues *)start;
++(void)end;
 +(void)log:(NSString *)msg;
-//-(void)flush;
+
 
 /*
  Record events or errors after a session has been started

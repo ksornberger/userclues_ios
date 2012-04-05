@@ -49,11 +49,17 @@ ExceptionHandler *exceptionHandler = nil;
         
         //Set up global exception handling?
         if (kUCHandleExceptions){
-            if (!exceptionHandler)
+            if (exceptionHandler)
                 exceptionHandler = [[ExceptionHandler alloc] init];
         }
     }
     return uc;
+}
+
++(void)end{
+    NSLog(@"TODO: End the session here");
+    [uc release];
+    uc = nil;
 }
 
 +(void)createEvent:(NSString *)eventName{
@@ -96,7 +102,12 @@ ExceptionHandler *exceptionHandler = nil;
 
 
 -(void)dealloc{
-    [exceptionHandler release];
+    NSLog(@"UC Dealloc called");
+    [self.queue release];
+    [self.curSession release];
+    if (exceptionHandler){
+        [exceptionHandler release];
+    }
     [super dealloc];
 }
 

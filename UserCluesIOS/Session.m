@@ -47,6 +47,16 @@
     [data release];
 }
 
+-(void)update:(NSDictionary *)data{
+    if (self.sessionId > 0){
+        [self.req sendRequestAsync:[[Routes sessionCreate] stringByReplacingOccurrencesOfString:@":id" withString:[NSString stringWithFormat:@"%@", self.sessionId]] requestMethod:@"POST" delegate:self data:data];
+    }else{
+        NSLog(@"Session Update Aborted: Session updated called without session ID available");
+    }
+    
+}
+
+
 #pragma mark -
 -(void) didReceiveResponse:(NSString *)response responseCode:(NSInteger)code{
     if (200 == code){

@@ -21,6 +21,7 @@
 
 -(id)initWithAPIKeyAndVersion:(NSString *)apikey appVersion:(NSString *)ver;
 -(void) create;
+-(void)update:(NSDictionary *)data;
 
 -(void) didReceiveResponse:(NSString *)response responseCode:(NSInteger)code;
 
