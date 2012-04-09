@@ -47,9 +47,14 @@
     [data release];
 }
 
+
+-(void)end{
+    [self.req sendRequestAsync:[[Routes sessionDestroy] stringByReplacingOccurrencesOfString:@":id" withString:[NSString stringWithFormat:@"%@", self.sessionId]] requestMethod:@"DELETE" delegate:self data:nil];
+}
+
 -(void)update:(NSDictionary *)data{
     if (self.sessionId > 0){
-        [self.req sendRequestAsync:[[Routes sessionCreate] stringByReplacingOccurrencesOfString:@":id" withString:[NSString stringWithFormat:@"%@", self.sessionId]] requestMethod:@"POST" delegate:self data:data];
+        [self.req sendRequestAsync:[[Routes sessionUpdate] stringByReplacingOccurrencesOfString:@":id" withString:[NSString stringWithFormat:@"%d", self.sessionId]] requestMethod:@"PUT" delegate:self data:data];
     }else{
         NSLog(@"Session Update Aborted: Session updated called without session ID available");
     }

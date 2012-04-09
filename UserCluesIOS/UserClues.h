@@ -49,6 +49,11 @@ NSString *apiKey = @"5d3ac439306a4a5c987ce9afc41c76e8";
 +(void)createEvent:(NSString *)eventName withData:(NSDictionary *)data;
 +(void)flush;
 
+/*
+ Additional and optional information to record
+ */
++(void)identifyUser:(NSString *)identifier;
+
 
 
 @end

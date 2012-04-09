@@ -20,7 +20,8 @@
 @property (nonatomic) NSInteger sessionId;
 
 -(id)initWithAPIKeyAndVersion:(NSString *)apikey appVersion:(NSString *)ver;
--(void) create;
+-(void)create;
+-(void)end;
 -(void)update:(NSDictionary *)data;
 
 -(void) didReceiveResponse:(NSString *)response responseCode:(NSInteger)code;

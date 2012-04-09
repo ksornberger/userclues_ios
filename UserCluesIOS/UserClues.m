@@ -36,6 +36,8 @@ ExceptionHandler *exceptionHandler = nil;
     return self;
 }
 
+#pragma mark -
+#pragma mark Session Data
 
 +(UserClues *)start{
     if (nil == uc){
@@ -58,9 +60,20 @@ ExceptionHandler *exceptionHandler = nil;
 
 +(void)end{
     NSLog(@"TODO: End the session here");
+    [UserClues flush];
+    [uc.curSession end];
     [uc release];
     uc = nil;
 }
+
++(void)identifyUser:(NSString *)identifier{
+    [uc.curSession update:[[NSDictionary alloc] initWithObjectsAndKeys:identifier, @"user_identifier",nil]];
+}
+
+
+
+#pragma mark -
+#pragma mark Event Management
 
 +(void)createEvent:(NSString *)eventName{
     //TODO Warn developer that a session hasn't been started
