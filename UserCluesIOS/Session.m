@@ -49,7 +49,11 @@
 
 
 -(void)end{
-    [self.req sendRequestAsync:[[Routes sessionDestroy] stringByReplacingOccurrencesOfString:@":id" withString:[NSString stringWithFormat:@"%@", self.sessionId]] requestMethod:@"DELETE" delegate:self data:nil];
+    [self.req sendRequestAsync:[[Routes sessionDestroy] stringByReplacingOccurrencesOfString:@":id" withString:[NSString stringWithFormat:@"%d", self.sessionId]] requestMethod:@"DELETE" delegate:self data:nil];
+}
+
+-(void)endInBackground{
+    [self.req sendRequestAsync:[[Routes sessionDestroy] stringByReplacingOccurrencesOfString:@":id" withString:[NSString stringWithFormat:@"%d", self.sessionId]] requestMethod:@"DELETE" delegate:self data:[[NSDictionary alloc] initWithObjectsAndKeys:@"true", @"didEnterBackground", nil]];
 }
 
 -(void)update:(NSDictionary *)data{

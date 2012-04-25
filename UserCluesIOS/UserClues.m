@@ -13,8 +13,7 @@
 #import "Session.h"
 #import "API.h"
 
-//#define USER_CLUES_VERSION_NUM @"1.0"
-NSString *userCluesVersionNum = @"1.0";
+NSString* const userCluesVersionNum = @"0.1";
 
 
 @implementation UserClues
@@ -43,11 +42,17 @@ ExceptionHandler *exceptionHandler = nil;
     if (nil == uc){
         uc = [[UserClues alloc] init];
         
-        uc.curSession = [[Session alloc] initWithAPIKeyAndVersion:apiKey appVersion:userCluesVersionNum];
+        uc.curSession = [[Session alloc] initWithAPIKeyAndVersion:apiKey appVersion:appVersionNumber];
         [uc.curSession create];
         
         // Initialize the event queue for this session
         uc.queue = [[EventQueue alloc] initWithSessionId:uc.curSession.sessionId];
+        
+        //Configure app delegates
+        [[NSNotificationCenter defaultCenter] addObserver:uc 
+                                                 selector:@selector(didEnterBackground:)
+                                                     name:UIApplicationDidEnterBackgroundNotification
+                                                   object:nil];
         
         //Set up global exception handling?
         if (kUCHandleExceptions){
@@ -66,6 +71,15 @@ ExceptionHandler *exceptionHandler = nil;
     uc = nil;
 }
 
++(void)endInBackground{
+    NSLog(@"Ending session due to application entering background");
+    [UserClues flush];
+    [uc.curSession endInBackground];
+    [uc release];
+    uc = nil;
+}
+
+
 +(void)identifyUser:(NSString *)identifier{
     [uc.curSession update:[[NSDictionary alloc] initWithObjectsAndKeys:identifier, @"user_identifier",nil]];
 }
@@ -79,6 +93,8 @@ ExceptionHandler *exceptionHandler = nil;
     //TODO Warn developer that a session hasn't been started
     NSLog(@"Creating event with name: %@", eventName);
     [UserClues createEvent:eventName withData:nil];
+
+    
 }
                 
 +(void)createEvent:(NSString *)eventName withData:(NSDictionary *)data{
@@ -93,7 +109,7 @@ ExceptionHandler *exceptionHandler = nil;
     if ([uc.queue count] >0 && uc.curSession.sessionId > 0 && kUCIsRecording){
         //TODO: Lock the event queue here?        
         NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys:[uc.queue data], @"events", [NSNumber numberWithInt:uc.curSession.sessionId], @"session_id", nil];
-        API *req = [[API alloc] initWithAPIKeyAndVersion:apiKey ucVersion:userCluesVersionNum];
+        API *req = [[API alloc] initWithAPIKeyAndVersion:apiKey ucVersion:userCluesVersionNum]; //TODO is this version number needed or even incorrect?
         [req sendRequestAsync:[Routes eventCreate] requestMethod:@"POST" delegate:uc.queue data:data];
         [data release];
 
@@ -121,7 +137,21 @@ ExceptionHandler *exceptionHandler = nil;
     if (exceptionHandler){
         [exceptionHandler release];
     }
+    
+    //Unregister custom delegates:
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationDidEnterBackgroundNotification
+                                                  object:nil];
     [super dealloc];
+}
+
+#pragma mark -
+#pragma mark Delegates
+-(void)didEnterBackground:(UIApplication *)application {
+    NSLog(@"Did enter background");
+    
+    [UserClues endInBackground];
+
 }
 
 
