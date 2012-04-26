@@ -28,6 +28,9 @@ const int32_t UncaughtExceptionMaximum = 10;
 //const NSInteger UncaughtExceptionHandlerSkipAddressCount = 4;
 //const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
 
+void HandleException(NSException *exception);
+void SignalHandler(int signal);
+
 @implementation ExceptionHandler
 
 

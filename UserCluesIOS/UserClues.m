@@ -54,10 +54,12 @@ ExceptionHandler *exceptionHandler = nil;
         uc.queue = [[EventQueue alloc] initWithSessionId:uc.curSession.sessionId];
         
         //Configure app delegates
+        if (&UIApplicationDidEnterBackgroundNotification != NULL){
         [[NSNotificationCenter defaultCenter] addObserver:uc 
                                                  selector:@selector(didEnterBackground:)
                                                      name:UIApplicationDidEnterBackgroundNotification
                                                    object:nil];
+        }
         
         //Log a session_start event
         [UserClues createEvent:@"session_start"];
@@ -154,10 +156,13 @@ ExceptionHandler *exceptionHandler = nil;
         [exceptionHandler release];
     }
     
+    
     //Unregister custom delegates:
-    [[NSNotificationCenter defaultCenter] removeObserver:self
+    if (&UIApplicationDidEnterBackgroundNotification != NULL){
+        [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIApplicationDidEnterBackgroundNotification
                                                   object:nil];
+    }
     [super dealloc];
 }
 

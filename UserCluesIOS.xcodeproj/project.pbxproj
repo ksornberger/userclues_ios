@@ -56,6 +56,7 @@
 		0A833EEE151825E2000BECBB /* Routes.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A833EEC151825E2000BECBB /* Routes.m */; };
 		0A833EF5151B61F1000BECBB /* ExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A833EF3151B61F0000BECBB /* ExceptionHandler.h */; };
 		0A833EF6151B61F1000BECBB /* ExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A833EF4151B61F1000BECBB /* ExceptionHandler.m */; };
+		0AC83C5E1549BC2E00390F7A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC83C5D1549BC2E00390F7A /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +123,7 @@
 		0A833EEC151825E2000BECBB /* Routes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Routes.m; sourceTree = "<group>"; };
 		0A833EF3151B61F0000BECBB /* ExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionHandler.h; sourceTree = "<group>"; };
 		0A833EF4151B61F1000BECBB /* ExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExceptionHandler.m; sourceTree = "<group>"; };
+		0AC83C5D1549BC2E00390F7A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AC83C5E1549BC2E00390F7A /* UIKit.framework in Frameworks */,
 				0A833EB71517B03D000BECBB /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -183,6 +186,7 @@
 		0A833EA81517B03D000BECBB = {
 			isa = PBXGroup;
 			children = (
+				0AC83C5D1549BC2E00390F7A /* UIKit.framework */,
 				0A833EB81517B03D000BECBB /* UserCluesIOS */,
 				0A833ECC1517B03D000BECBB /* UserCluesIOSTests */,
 				0A833EB51517B03D000BECBB /* Frameworks */,
@@ -491,8 +495,10 @@
 				DSTROOT = /tmp/UserCluesIOS.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UserCluesIOS/UserCluesIOS-Prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos5.1;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -503,8 +509,10 @@
 				DSTROOT = /tmp/UserCluesIOS.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UserCluesIOS/UserCluesIOS-Prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos5.1;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;

@@ -1,0 +1,2 @@
+To compile the static library, open the project in XCode and build the code as you would normally. Now look under the Products group on the left hand side and you should see a file called libUserCluesIOS.a. Right click on this file and "Show in Explorer".
+To use the library in your application, import libUserCluesIOS.a along with UserClues.h.
