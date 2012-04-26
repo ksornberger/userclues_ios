@@ -8,6 +8,8 @@
 
 #import "Session.h"
 
+NSString* const IsFirstLaunchKey = @"IsFirstLaunchKey";
+
 @interface Session(){
 }
 @property (nonatomic, retain) API *req;
@@ -42,7 +44,12 @@
 #pragma mark -
 #pragma mark Functionality
 -(void) create{
-    NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys: self.version, @"version", nil];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    BOOL isFirstLaunch = [prefs boolForKey:IsFirstLaunchKey];
+    //Change the value if this is infact the first launch
+    if (isFirstLaunch)
+        [prefs setBool:NO forKey:IsFirstLaunchKey];
+    NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys: self.version, @"version", [NSNumber numberWithBool:isFirstLaunch], @"first_launch", nil];
     [self.req sendRequestAsync:[Routes sessionCreate] requestMethod:@"POST" delegate:self data:data];
     [data release];
 }

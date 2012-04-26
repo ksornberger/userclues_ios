@@ -14,9 +14,8 @@
 #include <execinfo.h>
 
 
-void InstallUncaughtExceptionHandler();
-void HandleException(NSException *exception);
-void SignalHandler(int signal);
+//void HandleException(NSException *exception);
+//void SignalHandler(int signal);
 
 
 NSString * const UncaughtExceptionHandlerSignalExceptionName = @"UncaughtExceptionHandlerSignalExceptionName";
@@ -25,6 +24,9 @@ NSString * const UncaughtExceptionHandlerAddressesKey = @"UncaughtExceptionHandl
 
 volatile int32_t UncaughtExceptionCount = 0;
 const int32_t UncaughtExceptionMaximum = 10;
+
+//const NSInteger UncaughtExceptionHandlerSkipAddressCount = 4;
+//const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
 
 @implementation ExceptionHandler
 
@@ -36,7 +38,7 @@ const int32_t UncaughtExceptionMaximum = 10;
 {
     self = [super init];
     if (self) {
-        InstallUncaughtExceptionHandler();
+        //InstallUncaughtExceptionHandler();
     }
     
     return self;
@@ -60,60 +62,6 @@ const int32_t UncaughtExceptionMaximum = 10;
 #pragma mark -
 #pragma mark C Functions
 
-void InstallUncaughtExceptionHandler(){
-    NSSetUncaughtExceptionHandler(&HandleException);
-    signal(SIGABRT, SignalHandler);
-	signal(SIGILL, SignalHandler);
-	signal(SIGSEGV, SignalHandler);
-	signal(SIGFPE, SignalHandler);
-	signal(SIGBUS, SignalHandler);
-	signal(SIGPIPE, SignalHandler);
-}
-
-
-
-void HandleException(NSException *exception){
-    int32_t exceptionCount = OSAtomicIncrement32(&UncaughtExceptionCount);
-	if (exceptionCount > UncaughtExceptionMaximum){
-		return;
-	}
-	
-	NSArray *callStack = [ExceptionHandler backtrace];
-	NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:[exception userInfo]];
-	[userInfo setObject:callStack forKey:UncaughtExceptionHandlerAddressesKey];
-	
-	[[[[ExceptionHandler alloc] init] autorelease]
-        performSelectorOnMainThread:@selector(handleException:)
-        withObject: [NSException exceptionWithName:[exception name]
-                                            reason:[exception reason]
-                                          userInfo:userInfo]
-        waitUntilDone:YES];
-}
-
-
-void SignalHandler(int signal)
-{
-	int32_t exceptionCount = OSAtomicIncrement32(&UncaughtExceptionCount);
-	if (exceptionCount > UncaughtExceptionMaximum){
-		return;
-	}
-	
-	NSMutableDictionary *userInfo =[NSMutableDictionary
-                                    dictionaryWithObject:[NSNumber numberWithInt:signal]
-                                    forKey:UncaughtExceptionHandlerSignalKey];
-    
-	NSArray *callStack = [ExceptionHandler backtrace];
-    [userInfo setObject:callStack forKey:UncaughtExceptionHandlerAddressesKey];
-	
-	[[[[ExceptionHandler alloc] init] autorelease]
-        performSelectorOnMainThread:@selector(handleException:)
-        withObject:[NSException exceptionWithName:UncaughtExceptionHandlerSignalExceptionName
-                                           reason: [NSString stringWithFormat:
-                                                    NSLocalizedString(@"Signal %d was raised.", nil), signal]
-                                         userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:signal]
-                                                                               forKey:UncaughtExceptionHandlerSignalKey]]
-        waitUntilDone:YES];
-}
 
 #pragma mark -
 #pragma mark Core
@@ -139,8 +87,15 @@ void SignalHandler(int signal)
 - (void)handleException:(NSException *)exception
 {
     // If the app has any critical data that needs to be saved, do it here.
-    NSLog(@"Unhandled Exception Caught By UserClues.\n\n%@\n%@", [exception reason], [[exception userInfo] objectForKey:UncaughtExceptionHandlerAddressesKey]);
+    NSLog(@"Unhandled Exception Caught By UserClues.\n\n%@\n\n%@", [exception reason], [[exception userInfo] objectForKey:UncaughtExceptionHandlerAddressesKey]);
     //TODO: Now send this to the UC Servers in the run loop
+    EventQueue *queue = [EventQueue getInstance];
+    Event *event = [[Event alloc] initWithNameAndData:@"exception" eventData:[[NSDictionary alloc] initWithObjectsAndKeys:[exception reason], @"message", [[exception userInfo] objectForKey:UncaughtExceptionHandlerAddressesKey], @"stack_trace" , nil]];
+    [queue add:event];
+    [event release];
+    
+    //[queue 
+    
     bool dismissed = NO;
 	
 	CFRunLoopRef runLoop = CFRunLoopGetCurrent();
@@ -155,6 +110,14 @@ void SignalHandler(int signal)
 	}
 	
 	CFRelease(allModes);
+    
+    NSSetUncaughtExceptionHandler(NULL);
+	signal(SIGABRT, SIG_DFL);
+	signal(SIGILL, SIG_DFL);
+	signal(SIGSEGV, SIG_DFL);
+	signal(SIGFPE, SIG_DFL);
+	signal(SIGBUS, SIG_DFL);
+	signal(SIGPIPE, SIG_DFL);
 
 	
 	if ([[exception name] isEqual:UncaughtExceptionHandlerSignalExceptionName]){
@@ -166,3 +129,62 @@ void SignalHandler(int signal)
 }
 
 @end
+
+
+
+
+
+void HandleException(NSException *exception){
+    int32_t exceptionCount = OSAtomicIncrement32(&UncaughtExceptionCount);
+	if (exceptionCount > UncaughtExceptionMaximum){
+		return;
+	}
+	
+	NSArray *callStack = [ExceptionHandler backtrace];
+	NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:[exception userInfo]];
+	[userInfo setObject:callStack forKey:UncaughtExceptionHandlerAddressesKey];
+	
+	[[[[ExceptionHandler alloc] init] autorelease]
+     performSelectorOnMainThread:@selector(handleException:)
+     withObject: [NSException exceptionWithName:[exception name]
+                                         reason:[exception reason]
+                                       userInfo:userInfo]
+     waitUntilDone:YES];
+}
+
+
+void SignalHandler(int signal)
+{
+	int32_t exceptionCount = OSAtomicIncrement32(&UncaughtExceptionCount);
+	if (exceptionCount > UncaughtExceptionMaximum){
+		return;
+	}
+	
+	NSMutableDictionary *userInfo =[NSMutableDictionary
+                                    dictionaryWithObject:[NSNumber numberWithInt:signal]
+                                    forKey:UncaughtExceptionHandlerSignalKey];
+    
+	NSArray *callStack = [ExceptionHandler backtrace];
+    [userInfo setObject:callStack forKey:UncaughtExceptionHandlerAddressesKey];
+	
+	[[[[ExceptionHandler alloc] init] autorelease]
+     performSelectorOnMainThread:@selector(handleException:)
+     withObject:[NSException exceptionWithName:UncaughtExceptionHandlerSignalExceptionName
+                                        reason: [NSString stringWithFormat:
+                                                 NSLocalizedString(@"Signal %d was raised.", nil), signal]
+                                      userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:signal]
+                                                                            forKey:UncaughtExceptionHandlerSignalKey]]
+     waitUntilDone:YES];
+}
+
+void InstallUncaughtExceptionHandler(){
+    NSLog(@"Registering Exception Handler");
+    NSSetUncaughtExceptionHandler(&HandleException);
+    signal(SIGABRT, SignalHandler);
+	signal(SIGILL, SignalHandler);
+	signal(SIGSEGV, SignalHandler);
+	signal(SIGFPE, SignalHandler);
+	signal(SIGBUS, SignalHandler);
+	signal(SIGPIPE, SignalHandler);
+}
+

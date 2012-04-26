@@ -25,7 +25,7 @@ NSString* const appVersionNumber = @"1.0";
 
 // Flag to determine whether or not UserClues will register a global exception handler to report unhandled exceptions
 // and debug information to the server for later analysis.
-#define kUCHandleExceptions NO
+#define kUCHandleExceptions YES
 
 // Flag to determine whether the application should be logging events to the UC Server (default is true)
 // You may want to set this to NO while testing your integration. Everything will function as normal but events
@@ -62,10 +62,10 @@ NSString* const appVersionNumber = @"1.0";
 /*
  Additional and optional information to record
  */
-+(void)identifyUser:(NSString *)identifier;
-
-
-
+// Future feature
+//+(void)identifyUser:(NSString *)identifier;
 
 
 @end
+
+void uncaughtExceptionHandler(NSException *exception);

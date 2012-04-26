@@ -25,6 +25,11 @@ ExceptionHandler *exceptionHandler = nil;
 @synthesize queue;
 
 
++ (void)installUncaughtExceptionHandler
+{
+	InstallUncaughtExceptionHandler();
+}
+
 - (id)init
 {
     self = [super init];
@@ -54,17 +59,27 @@ ExceptionHandler *exceptionHandler = nil;
                                                      name:UIApplicationDidEnterBackgroundNotification
                                                    object:nil];
         
+        //Log a session_start event
+        [UserClues createEvent:@"session_start"];
+        
         //Set up global exception handling?
         if (kUCHandleExceptions){
-            if (exceptionHandler)
-                exceptionHandler = [[ExceptionHandler alloc] init];
+            [UserClues log:@"Enabling UserClues Uncaught Exception Handler"];
+            //NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+            
+            exceptionHandler = [[ExceptionHandler alloc] init];
+            if (exceptionHandler){
+                exceptionHandler = [[ExceptionHandler alloc] init];	
+                [self performSelector:@selector(installUncaughtExceptionHandler) withObject:nil afterDelay:0];
+                
+            }
+             
         }
     }
     return uc;
 }
 
 +(void)end{
-    NSLog(@"TODO: End the session here");
     [UserClues flush];
     [uc.curSession end];
     [uc release];
@@ -72,7 +87,7 @@ ExceptionHandler *exceptionHandler = nil;
 }
 
 +(void)endInBackground{
-    NSLog(@"Ending session due to application entering background");
+    [UserClues log:@"Ending session due to application entering background"];
     [UserClues flush];
     [uc.curSession endInBackground];
     [uc release];
@@ -91,7 +106,7 @@ ExceptionHandler *exceptionHandler = nil;
 
 +(void)createEvent:(NSString *)eventName{
     //TODO Warn developer that a session hasn't been started
-    NSLog(@"Creating event with name: %@", eventName);
+    [UserClues log:[NSString stringWithFormat: @"Creating event with name: %@", eventName]];
     [UserClues createEvent:eventName withData:nil];
 
     
@@ -107,6 +122,7 @@ ExceptionHandler *exceptionHandler = nil;
 +(void)flush{
     //TODO: Lock the flush operation here?
     if ([uc.queue count] >0 && uc.curSession.sessionId > 0 && kUCIsRecording){
+        [UserClues log:@"Flushing the Event Queue"];
         //TODO: Lock the event queue here?        
         NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys:[uc.queue data], @"events", [NSNumber numberWithInt:uc.curSession.sessionId], @"session_id", nil];
         API *req = [[API alloc] initWithAPIKeyAndVersion:apiKey ucVersion:userCluesVersionNum]; //TODO is this version number needed or even incorrect?
@@ -131,7 +147,7 @@ ExceptionHandler *exceptionHandler = nil;
 
 
 -(void)dealloc{
-    NSLog(@"UC Dealloc called");
+    [UserClues log:@"UC Dealloc called"];
     [self.queue release];
     [self.curSession release];
     if (exceptionHandler){
@@ -148,15 +164,15 @@ ExceptionHandler *exceptionHandler = nil;
 #pragma mark -
 #pragma mark Delegates
 -(void)didEnterBackground:(UIApplication *)application {
-    NSLog(@"Did enter background");
-    
+    [UserClues log:@"Did enter background"];
     [UserClues endInBackground];
 
 }
 
 
 
-
-
-
 @end
+
+void uncaughtExceptionHandler(NSException *exception) {
+    [UserClues log:@"Exception Caught"];
+}

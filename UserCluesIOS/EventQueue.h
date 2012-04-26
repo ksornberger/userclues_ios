@@ -23,4 +23,7 @@
 -(NSInteger)count;
 -(NSMutableArray *)data;
 
++(EventQueue *) getInstance;
+
+
 @end

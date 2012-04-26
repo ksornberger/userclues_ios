@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "EventQueue.h"
+#import "Event.h"
 
 @interface ExceptionHandler : NSObject
 
@@ -15,4 +17,6 @@
 
 
 @end
+
+void InstallUncaughtExceptionHandler();
 

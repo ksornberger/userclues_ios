@@ -10,6 +10,8 @@
 
 @implementation EventQueue
 
+static EventQueue *instance = nil;
+
 
 #pragma mark Memory Management
 - (id)init {
@@ -18,9 +20,16 @@
 
 -(id)initWithSessionId:(NSInteger)sessionId{
     if (self = [super init]) {
+        //TODO: Session ID Isn't used here yet?
         queue = [[NSMutableArray alloc] init];
+        instance = self;
     }
     return self;
+}
+
+//NOTE: This is assuming that this object has already been initialized elsewhere.
++(EventQueue *) getInstance{
+    return instance;
 }
 
 - (void)dealloc {
@@ -32,6 +41,7 @@
 #pragma mark Queue Functions
 -(void)add:(Event *)event{
     [queue addObject:event];
+    NSLog(@"- Added event: %@", event.featureName);
 }
 
 /*
