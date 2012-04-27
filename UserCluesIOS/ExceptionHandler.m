@@ -95,16 +95,15 @@ void SignalHandler(int signal);
     EventQueue *queue = [EventQueue getInstance];
     Event *event = [[Event alloc] initWithNameAndData:@"exception" eventData:[[NSDictionary alloc] initWithObjectsAndKeys:[exception reason], @"message", [[exception userInfo] objectForKey:UncaughtExceptionHandlerAddressesKey], @"stack_trace" , nil]];
     [queue add:event];
+    queue.isFlushingAfterException = YES;
+    [queue flush];
     [event release];
+    [queue release];
     
-    //[queue 
-    
-    bool dismissed = NO;
-	
 	CFRunLoopRef runLoop = CFRunLoopGetCurrent();
 	CFArrayRef allModes = CFRunLoopCopyAllModes(runLoop);
 	
-	while (!dismissed)
+	while (queue.isFlushingAfterException)
 	{
 		for (NSString *mode in (NSArray *)allModes)
 		{

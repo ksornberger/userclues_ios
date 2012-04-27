@@ -12,6 +12,10 @@
 
 static EventQueue *instance = nil;
 
+@synthesize isRecording;
+@synthesize sessionId;
+@synthesize apiKey;
+@synthesize isFlushingAfterException;
 
 #pragma mark Memory Management
 - (id)init {
@@ -22,6 +26,7 @@ static EventQueue *instance = nil;
     if (self = [super init]) {
         //TODO: Session ID Isn't used here yet?
         queue = [[NSMutableArray alloc] init];
+        isFlushingAfterException = NO;
         instance = self;
     }
     return self;
@@ -63,6 +68,19 @@ static EventQueue *instance = nil;
     return queue;
 }
 
+-(void)flush{
+    //TODO: Lock the flush operation here?
+    if ([queue count] >0 && self.sessionId > 0 && self.isRecording){
+        //TODO: Lock the event queue here?        
+        NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys:queue, @"events", [NSNumber numberWithInt:self.sessionId], @"session_id", nil];
+        req = [[API alloc] initWithAPIKeyAndVersion:self.apiKey ucVersion:0]; //TODO is this version number needed or even incorrect?
+        [req sendRequestAsync:[Routes eventCreate] requestMethod:@"POST" delegate:self data:data];
+        [data release];
+        
+    }
+}
+
+
 #pragma mark -
 -(void) didReceiveResponse:(NSString *)response responseCode:(NSInteger)code{
     if (200 == code){
@@ -76,6 +94,7 @@ static EventQueue *instance = nil;
             NSLog(@"Queue Size After Removal: %d", [queue count]);
 
         }
+        self.isFlushingAfterException = NO;
         
     }
     

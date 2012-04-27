@@ -48,6 +48,7 @@ ExceptionHandler *exceptionHandler = nil;
         uc = [[UserClues alloc] init];
         
         uc.curSession = [[Session alloc] initWithAPIKeyAndVersion:apiKey appVersion:appVersionNumber];
+        uc.curSession.delegate = uc;
         [uc.curSession create];
         
         // Initialize the event queue for this session
@@ -60,6 +61,9 @@ ExceptionHandler *exceptionHandler = nil;
                                                      name:UIApplicationDidEnterBackgroundNotification
                                                    object:nil];
         }
+        
+        uc.queue.isRecording = kUCIsRecording;
+        uc.queue.apiKey = apiKey;
         
         //Log a session_start event
         [UserClues createEvent:@"session_start"];
@@ -123,6 +127,8 @@ ExceptionHandler *exceptionHandler = nil;
 
 +(void)flush{
     //TODO: Lock the flush operation here?
+    [uc.queue flush];
+    /*
     if ([uc.queue count] >0 && uc.curSession.sessionId > 0 && kUCIsRecording){
         [UserClues log:@"Flushing the Event Queue"];
         //TODO: Lock the event queue here?        
@@ -132,6 +138,7 @@ ExceptionHandler *exceptionHandler = nil;
         [data release];
 
     }
+     */
 }
 
 
@@ -164,6 +171,10 @@ ExceptionHandler *exceptionHandler = nil;
                                                   object:nil];
     }
     [super dealloc];
+}
+
+-(void)setSessionId:(NSInteger)newSessionId{
+    [self.queue setSessionId:newSessionId];
 }
 
 #pragma mark -

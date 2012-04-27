@@ -21,6 +21,7 @@ NSString* const IsFirstLaunchKey = @"IsFirstLaunchKey";
 @synthesize req;
 @synthesize version;
 @synthesize sessionId;
+@synthesize delegate;
 
 
 #pragma mark Constructor/Destructor
@@ -49,7 +50,7 @@ NSString* const IsFirstLaunchKey = @"IsFirstLaunchKey";
     //Change the value if this is infact the first launch
     if (isFirstLaunch)
         [prefs setBool:NO forKey:IsFirstLaunchKey];
-    NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys: self.version, @"version", [NSNumber numberWithBool:isFirstLaunch], @"first_launch", nil];
+    NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys: self.version, @"version_name", [NSNumber numberWithBool:isFirstLaunch], @"first_launch", [NSNumber numberWithInteger:[[NSDate date] timeIntervalSince1970]], @"logged_at", nil];
     [self.req sendRequestAsync:[Routes sessionCreate] requestMethod:@"POST" delegate:self data:data];
     [data release];
 }
@@ -80,6 +81,9 @@ NSString* const IsFirstLaunchKey = @"IsFirstLaunchKey";
         self.sessionId = [[responseDict objectForKey:@"session_id"] integerValue];
         NSLog(@"Session ID: %@", [responseDict objectForKey:@"session_id"]);
         NSLog(@"Session ID Stored: %d", self.sessionId);
+        
+        if (delegate)
+            [delegate setSessionId:self.sessionId];
         
     }
     

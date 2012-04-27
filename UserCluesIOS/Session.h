@@ -12,12 +12,15 @@
 
 @interface Session : NSObject <UCAPIRequest>{
     NSInteger sessionId;
+    id delegate;
     @private
     API *req;
     NSString *version;
 }
 
 @property (nonatomic) NSInteger sessionId;
+@property (nonatomic, retain) id delegate;
+
 
 -(id)initWithAPIKeyAndVersion:(NSString *)apikey appVersion:(NSString *)ver;
 -(void)create;

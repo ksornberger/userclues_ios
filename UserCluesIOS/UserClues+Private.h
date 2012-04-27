@@ -8,5 +8,6 @@
 
 -(void)didEnterBackground:(UIApplication *)application;
 +(void)log:(NSString *)msg;
+-(void)setSessionId:(NSInteger)newSessionId;
 
 @end

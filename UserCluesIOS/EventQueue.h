@@ -13,15 +13,26 @@
 
 @interface EventQueue : NSObject <UCAPIRequest>{
     NSMutableArray *queue;
+    BOOL isRecording;
+    NSInteger sessionId;
+    NSString *apiKey;
+    BOOL isFlushingAfterException;
+    
     @private
     API *req;
 }
+
+@property (nonatomic) BOOL isRecording;
+@property (nonatomic) NSInteger sessionId;
+@property (nonatomic, retain) NSString *apiKey;
+@property (nonatomic) BOOL isFlushingAfterException;
 
 -(id)initWithSessionId:(NSInteger)sessionId;
 -(void)add:(Event *)event;
 //-(void)flush:(Session *)session;
 -(NSInteger)count;
 -(NSMutableArray *)data;
+-(void)flush;
 
 +(EventQueue *) getInstance;
 
