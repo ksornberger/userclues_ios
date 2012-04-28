@@ -69,6 +69,9 @@ ExceptionHandler *exceptionHandler = nil;
         //Log a session_start event
         [UserClues createEvent:@"session_start"];
         
+        //Identify the device and record it as a magic event
+        [uc identifyDevice];
+        
         //Set up global exception handling?
         if (kUCHandleExceptions){
             [UserClues log:@"Enabling UserClues Uncaught Exception Handler"];
@@ -105,12 +108,9 @@ ExceptionHandler *exceptionHandler = nil;
 +(void)identifyUser:(NSString *)identifier{
     UCIdentifier *uid = [[UCIdentifier alloc] init];
     NSLog(@"%@", [uid getIdentifier]);
-    
-    
-    
-    
     [uid release];
 }
+
 
 
 
@@ -183,6 +183,16 @@ ExceptionHandler *exceptionHandler = nil;
 -(void)setSessionId:(NSInteger)newSessionId{
     [self.queue setSessionId:newSessionId];
 }
+
+-(void)identifyDevice{
+    UCIdentifier *uid = [[UCIdentifier alloc] init];
+    NSString *idString = [[NSString alloc] initWithString:[uid getIdentifier]];
+    [UserClues log:[NSString stringWithFormat:@"Device Id: %@", idString]];
+    [UserClues createEvent:@"identify_device" withData:[NSDictionary dictionaryWithObjectsAndKeys:idString, @"device_id", @"ODIN1", @"device_id_type", nil]];
+    [uid release];
+    [idString release];
+}
+
 
 #pragma mark -
 #pragma mark Delegates
