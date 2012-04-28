@@ -41,6 +41,8 @@
 		0A47D1C81523977000655ABD /* UCResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A47D1C61523976F00655ABD /* UCResponse.m */; };
 		0A47D1CB1523A0FE00655ABD /* Session.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A47D1C91523A0FD00655ABD /* Session.h */; };
 		0A47D1CC1523A0FE00655ABD /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A47D1CA1523A0FD00655ABD /* Session.m */; };
+		0A699752154B56450054155A /* UCIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A699750154B56450054155A /* UCIdentifier.h */; };
+		0A699753154B56450054155A /* UCIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A699751154B56450054155A /* UCIdentifier.m */; };
 		0A833EB71517B03D000BECBB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A833EB61517B03D000BECBB /* Foundation.framework */; };
 		0A833EBD1517B03D000BECBB /* UserClues.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A833EBC1517B03D000BECBB /* UserClues.m */; };
 		0A833EC51517B03D000BECBB /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A833EC41517B03D000BECBB /* SenTestingKit.framework */; };
@@ -104,6 +106,8 @@
 		0A47D1C61523976F00655ABD /* UCResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCResponse.m; sourceTree = "<group>"; };
 		0A47D1C91523A0FD00655ABD /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
 		0A47D1CA1523A0FD00655ABD /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
+		0A699750154B56450054155A /* UCIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCIdentifier.h; sourceTree = "<group>"; };
+		0A699751154B56450054155A /* UCIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCIdentifier.m; sourceTree = "<group>"; };
 		0A833EB31517B03D000BECBB /* libUserCluesIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libUserCluesIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A833EB61517B03D000BECBB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0A833EBA1517B03D000BECBB /* UserCluesIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UserCluesIOS-Prefix.pch"; sourceTree = "<group>"; };
@@ -229,6 +233,8 @@
 				0A833EEC151825E2000BECBB /* Routes.m */,
 				0A47D1C91523A0FD00655ABD /* Session.h */,
 				0A47D1CA1523A0FD00655ABD /* Session.m */,
+				0A699750154B56450054155A /* UCIdentifier.h */,
+				0A699751154B56450054155A /* UCIdentifier.m */,
 				0A47D1C51523976F00655ABD /* UCResponse.h */,
 				0A47D1C61523976F00655ABD /* UCResponse.m */,
 				0A833EE41517C19B000BECBB /* UserClues+Private.h */,
@@ -295,6 +301,7 @@
 				0A47D1CB1523A0FE00655ABD /* Session.h in Headers */,
 				0A3947A115264A5700E1938A /* Event.h in Headers */,
 				0A3947A615278C8000E1938A /* EventQueue.h in Headers */,
+				0A699752154B56450054155A /* UCIdentifier.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +423,7 @@
 				0A47D1CC1523A0FE00655ABD /* Session.m in Sources */,
 				0A3947A215264A5700E1938A /* Event.m in Sources */,
 				0A3947A715278C8000E1938A /* EventQueue.m in Sources */,
+				0A699753154B56450054155A /* UCIdentifier.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,6 +12,7 @@
 #import "ExceptionHandler.h"
 #import "Session.h"
 #import "API.h"
+#import "UCIdentifier.h"
 
 NSString* const userCluesVersionNum = @"0.1";
 
@@ -102,7 +103,13 @@ ExceptionHandler *exceptionHandler = nil;
 
 
 +(void)identifyUser:(NSString *)identifier{
-    [uc.curSession update:[[NSDictionary alloc] initWithObjectsAndKeys:identifier, @"user_identifier",nil]];
+    UCIdentifier *uid = [[UCIdentifier alloc] init];
+    NSLog(@"%@", [uid getIdentifier]);
+    
+    
+    
+    
+    [uid release];
 }
 
 
