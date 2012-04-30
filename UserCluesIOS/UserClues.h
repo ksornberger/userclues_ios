@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Session.h"
-#import "EventQueue.h"
+
 
 /**********************************************
  Configuration settings
@@ -34,13 +33,9 @@ NSString* const appVersionNumber = @"1.0";
 
 
 @interface UserClues : NSObject {
-    Session *curSession;
-    @private
-    EventQueue *queue;
 }
 
 
-@property (nonatomic, retain) Session *curSession;
 
 /*
  * Returns the singleton istance of the UserClues reporting object. Will also start the necessary session related 
@@ -62,8 +57,7 @@ NSString* const appVersionNumber = @"1.0";
 /*
  Additional and optional information to record
  */
-// Future feature
-//+(void)identifyUser:(NSString *)identifier;
++(void)identifyUser:(NSString *)identifier;
 
 
 @end

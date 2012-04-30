@@ -8,6 +8,8 @@
 
 #import "UserClues.h"
 #import "UserClues+Private.h"
+#import "Session.h"
+#import "EventQueue.h"
 #import "Routes.h"
 #import "ExceptionHandler.h"
 #import "Session.h"
@@ -16,14 +18,22 @@
 
 NSString* const userCluesVersionNum = @"0.1";
 
+//@property (nonatomic, retain) Session *curSession;
+
 
 @implementation UserClues
+Session *curSession;
 
 static UserClues *uc = nil;
 ExceptionHandler *exceptionHandler = nil;
+EventQueue *queue;
 
-@synthesize curSession;
+
+//@synthesize curSession;
+
 @synthesize queue;
+
+
 
 
 + (void)installUncaughtExceptionHandler
@@ -36,6 +46,8 @@ ExceptionHandler *exceptionHandler = nil;
     self = [super init];
     if (self) {
         // Initialization code here.
+        curSession =  [[Session alloc] initWithAPIKeyAndVersion:apiKey appVersion:appVersionNumber];
+        curSession.delegate = self;
     }
     
     return self;
@@ -48,12 +60,14 @@ ExceptionHandler *exceptionHandler = nil;
     if (nil == uc){
         uc = [[UserClues alloc] init];
         
-        uc.curSession = [[Session alloc] initWithAPIKeyAndVersion:apiKey appVersion:appVersionNumber];
-        uc.curSession.delegate = uc;
-        [uc.curSession create];
+        //uc.curSession = [[Session alloc] initWithAPIKeyAndVersion:apiKey appVersion:appVersionNumber];
+        //uc.curSession.delegate = uc;
+        //[uc.curSession create];
+        [[uc getSession] create];
+
         
         // Initialize the event queue for this session
-        uc.queue = [[EventQueue alloc] initWithSessionId:uc.curSession.sessionId];
+        uc.queue = [[EventQueue alloc] initWithSessionId:[uc getSession].sessionId];
         
         //Configure app delegates
         if (&UIApplicationDidEnterBackgroundNotification != NULL){
@@ -91,7 +105,7 @@ ExceptionHandler *exceptionHandler = nil;
 
 +(void)end{
     [UserClues flush];
-    [uc.curSession end];
+    [[uc getSession] end];
     [uc release];
     uc = nil;
 }
@@ -99,16 +113,15 @@ ExceptionHandler *exceptionHandler = nil;
 +(void)endInBackground{
     [UserClues log:@"Ending session due to application entering background"];
     [UserClues flush];
-    [uc.curSession endInBackground];
+    [[uc getSession] endInBackground];
     [uc release];
     uc = nil;
 }
 
 
 +(void)identifyUser:(NSString *)identifier{
-    UCIdentifier *uid = [[UCIdentifier alloc] init];
-    NSLog(@"%@", [uid getIdentifier]);
-    [uid release];
+    [UserClues log:[NSString stringWithFormat:@"Identifying User: %@", identifier]];
+    [UserClues createEvent:@"identify_user" withData:[NSDictionary dictionaryWithObjectsAndKeys:identifier, @"user_id", nil]];
 }
 
 
@@ -165,7 +178,7 @@ ExceptionHandler *exceptionHandler = nil;
 -(void)dealloc{
     [UserClues log:@"UC Dealloc called"];
     [self.queue release];
-    [self.curSession release];
+    [curSession release];
     if (exceptionHandler){
         [exceptionHandler release];
     }
@@ -200,6 +213,10 @@ ExceptionHandler *exceptionHandler = nil;
     [UserClues log:@"Did enter background"];
     [UserClues endInBackground];
 
+}
+
+-(Session *)getSession{
+    return curSession;
 }
 
 
