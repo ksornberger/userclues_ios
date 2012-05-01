@@ -32,6 +32,8 @@ EventQueue *queue;
 //@synthesize curSession;
 
 @synthesize queue;
+@synthesize ucApiKey;
+@synthesize appVersionNumber;
 
 
 
@@ -46,8 +48,7 @@ EventQueue *queue;
     self = [super init];
     if (self) {
         // Initialization code here.
-        curSession =  [[Session alloc] initWithAPIKeyAndVersion:apiKey appVersion:appVersionNumber];
-        curSession.delegate = self;
+        curSession = nil;
     }
     
     return self;
@@ -56,18 +57,28 @@ EventQueue *queue;
 #pragma mark -
 #pragma mark Session Data
 
-+(UserClues *)start{
++(UserClues *)start:(NSString *)apiKey{
     if (nil == uc){
         uc = [[UserClues alloc] init];
         
+        uc.ucApiKey = apiKey;
+        
+        //set default version number
+        uc.appVersionNumber = @"0";
+        
+        curSession =  [[Session alloc] initWithAPIKeyAndVersion:uc.ucApiKey appVersion:uc.appVersionNumber];
+        curSession.delegate = uc;
+
+        
         //uc.curSession = [[Session alloc] initWithAPIKeyAndVersion:apiKey appVersion:appVersionNumber];
         //uc.curSession.delegate = uc;
-        //[uc.curSession create];
         [[uc getSession] create];
 
         
         // Initialize the event queue for this session
         uc.queue = [[EventQueue alloc] initWithSessionId:[uc getSession].sessionId];
+        uc.queue.isRecording = kUCIsRecording;
+        uc.queue.apiKey = apiKey;
         
         //Configure app delegates
         if (&UIApplicationDidEnterBackgroundNotification != NULL){
@@ -76,9 +87,8 @@ EventQueue *queue;
                                                      name:UIApplicationDidEnterBackgroundNotification
                                                    object:nil];
         }
+    
         
-        uc.queue.isRecording = kUCIsRecording;
-        uc.queue.apiKey = apiKey;
         
         //Log a session_start event
         [UserClues createEvent:@"session_start"];
@@ -160,6 +170,11 @@ EventQueue *queue;
     }
      */
 }
+
++(void)setAppVersionNumber:(NSString *)versionNumber{
+    uc.appVersionNumber = versionNumber;
+}
+
 
 
 

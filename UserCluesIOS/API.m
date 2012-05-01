@@ -193,6 +193,7 @@ NSTimeInterval const TIMEOUT_SECONDS = 15.0;
     NSLog(@"got auth challange");
     
     if ([challenge previousFailureCount] == 0) {
+        NSLog(@"Sending API key: %@", self.apiKey);
         [[challenge sender]  useCredential:[NSURLCredential credentialWithUser:self.apiKey password:@"" persistence:NSURLCredentialPersistenceNone] forAuthenticationChallenge:challenge];
     } else {
         [[challenge sender] cancelAuthenticationChallenge:challenge];  

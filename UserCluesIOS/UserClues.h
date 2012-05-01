@@ -13,11 +13,11 @@
  Configuration settings
  **********************************************/
 // IMPORTANT: Enter your API Key Below:
-NSString* const apiKey = @"5d3ac439306a4a5c987ce9afc41c76e8";
+//NSString* const UCApiKey = @"61561061dd4b41f6810cb63c983e4b1a";
 
 // Enter the version number of your application below:
 // This is important in order to separate reports by version number
-NSString* const appVersionNumber = @"1.0";
+//NSString* const appVersionNumber = @"1.0";
 
 // Enable NSLog Debug messages to be displayed. Enabling this is useful for integration and debugging.
 #define kUCDebugLogging YES
@@ -33,15 +33,18 @@ NSString* const appVersionNumber = @"1.0";
 
 
 @interface UserClues : NSObject {
+    NSString *ucApiKey;
+    NSString *appVersionNumber;
 }
 
-
+@property (nonatomic, retain) NSString *ucApiKey;
+@property (nonatomic, retain) NSString *appVersionNumber;
 
 /*
  * Returns the singleton istance of the UserClues reporting object. Will also start the necessary session related 
  * data if a session has not already been initialized.
  */
-+(UserClues *)start;
++(UserClues *)start:(NSString *)apiKey;
 +(void)end;
 +(void)endInBackground;
 +(void)log:(NSString *)msg;
@@ -59,6 +62,10 @@ NSString* const appVersionNumber = @"1.0";
  */
 +(void)identifyUser:(NSString *)identifier;
 
+/*
+ Configuration
+ */
++(void)setAppVersionNumber:(NSString *)versionNumber;
 
 @end
 

@@ -13,13 +13,14 @@
 //NOTE: Make sure the host matches the host in rootUrl before
 //Other Note: (Yes, I know this can be done so that the host is only written once, but for right now, this is how I'm doing it.)
 //TODO: Elimiate redundency below.
-#ifdef DEBUG
+/*#ifdef DEBUG
     static NSString *rootUrl = @"http://api.lvh.me:3000/";
     static NSString *host = @"lvh.me";
 #else
-    static NSString *rootUrl = @"https://api.userclues.com/";
-    static NSString *host = @"userclues.com";
-#endif
+*/ 
+static NSString *rootUrl = @"https://api.userclues.com/";
+static NSString *host = @"userclues.com";
+//#endif
 
 
 
