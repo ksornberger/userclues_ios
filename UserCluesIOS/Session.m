@@ -28,8 +28,8 @@ NSString* const IsFirstLaunchKey = @"IsFirstLaunchKey";
 -(id)initWithAPIKeyAndVersion:(NSString *)apikey appVersion:(NSString *)ver{
     self = [super init];
     if (self) {
-        self.req = [[API alloc] initWithAPIKeyAndVersion:apikey ucVersion:ver];
-        self.version = ver;
+        self.version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+        self.req = [[API alloc] initWithAPIKeyAndVersion:apikey ucVersion:self.version];
     }
     
     return self;
@@ -51,6 +51,7 @@ NSString* const IsFirstLaunchKey = @"IsFirstLaunchKey";
     if (isFirstLaunch)
         [prefs setBool:NO forKey:IsFirstLaunchKey];
     NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys: self.version, @"version_name", [NSNumber numberWithBool:isFirstLaunch], @"first_launch", [NSNumber numberWithInteger:[[NSDate date] timeIntervalSince1970]], @"logged_at", nil];
+    NSLog(@"Session Create info: %@", data);
     [self.req sendRequestAsync:[Routes sessionCreate] requestMethod:@"POST" delegate:self data:data];
     [data release];
 }
