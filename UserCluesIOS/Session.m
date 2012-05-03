@@ -25,7 +25,7 @@ NSString* const IsFirstLaunchKey = @"IsFirstLaunchKey";
 
 
 #pragma mark Constructor/Destructor
--(id)initWithAPIKeyAndVersion:(NSString *)apikey appVersion:(NSString *)ver{
+-(id)initWithAPIKeyAndVersion:(NSString *)apikey{
     self = [super init];
     if (self) {
         self.version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];

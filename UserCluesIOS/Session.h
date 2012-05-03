@@ -22,7 +22,7 @@
 @property (nonatomic, retain) id delegate;
 
 
--(id)initWithAPIKeyAndVersion:(NSString *)apikey appVersion:(NSString *)ver;
+-(id)initWithAPIKeyAndVersion:(NSString *)apikey;
 -(void)create;
 -(void)end;
 -(void)endInBackground;

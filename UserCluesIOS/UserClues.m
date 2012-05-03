@@ -16,10 +16,6 @@
 #import "API.h"
 #import "UCIdentifier.h"
 
-NSString* const userCluesVersionNum = @"0.1";
-
-//@property (nonatomic, retain) Session *curSession;
-
 
 @implementation UserClues
 Session *curSession;
@@ -66,7 +62,7 @@ EventQueue *queue;
         //set default version number
         uc.appVersionNumber = @"0";
         
-        curSession =  [[Session alloc] initWithAPIKeyAndVersion:uc.ucApiKey appVersion:uc.appVersionNumber];
+        curSession =  [[Session alloc] initWithAPIKeyAndVersion:uc.ucApiKey];
         curSession.delegate = uc;
 
         
@@ -152,6 +148,12 @@ EventQueue *queue;
     Event *e = [[Event alloc] initWithNameAndData:eventName eventData:data];
     [uc.queue add:e];
     [e release];
+    
+    //Check to see if we should autoflush the queue
+    if ([uc.queue count] == kUCAutoFlushEventCount)
+        [UserClues flush];
+    // I set this as an equal comparison so it's only automatically triggered once on the actual count, that way if you added 2 or 3 events very quickly
+    // it wont send a flush command as there is currently no locking on it, so flush flush right away would be bad.
 }
 
 

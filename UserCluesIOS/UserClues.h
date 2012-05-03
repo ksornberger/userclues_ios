@@ -32,6 +32,10 @@
 #define kUCIsRecording YES
 
 
+#define kUCAutoFlushEventCount 10
+
+
+
 @interface UserClues : NSObject {
     NSString *ucApiKey;
     NSString *appVersionNumber;
@@ -62,10 +66,6 @@
  */
 +(void)identifyUser:(NSString *)identifier;
 
-/*
- Configuration
- */
-+(void)setAppVersionNumber:(NSString *)versionNumber;
 
 @end
 
