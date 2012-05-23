@@ -26,13 +26,13 @@
 NSMutableData *receivedData;
 NSTimeInterval const TIMEOUT_SECONDS = 15.0;
 
-#ifdef DEBUG
-    NSString *apiProtocol = @"http";
-    NSInteger apiPort = 3000;
-#else
+//#ifdef DEBUG
+//    NSString *apiProtocol = @"http";
+//    NSInteger apiPort = 3000;
+//#else
     NSString *apiProtocol = @"https";
     NSInteger apiPort = 0;
-#endif
+//#endif
 
 /*
 #pragma mark Constructor/Destructor

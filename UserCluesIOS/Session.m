@@ -47,9 +47,11 @@ NSString* const IsFirstLaunchKey = @"IsFirstLaunchKey";
 -(void) create{
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     BOOL isFirstLaunch = [prefs boolForKey:IsFirstLaunchKey];
+    
     //Change the value if this is infact the first launch
     if (isFirstLaunch)
         [prefs setBool:NO forKey:IsFirstLaunchKey];
+    
     NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys: self.version, @"version_name", [NSNumber numberWithBool:isFirstLaunch], @"first_launch", [NSNumber numberWithInteger:[[NSDate date] timeIntervalSince1970]], @"logged_at", nil];
     NSLog(@"Session Create info: %@", data);
     [self.req sendRequestAsync:[Routes sessionCreate] requestMethod:@"POST" delegate:self data:data];

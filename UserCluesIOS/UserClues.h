@@ -32,7 +32,7 @@
 #define kUCIsRecording YES
 
 
-#define kUCAutoFlushEventCount 10
+#define kUCAutoFlushEventCount 15
 
 
 
