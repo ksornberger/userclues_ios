@@ -107,6 +107,7 @@ NSTimeInterval const TIMEOUT_SECONDS = 15.0;
 }
 
 -(void)sendRequestAsync:(NSString *)url requestMethod:(NSString *)method delegate:(id)delegate data:(NSDictionary *)data{
+    NSLog(@"Making request to: %@", url);
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:TIMEOUT_SECONDS];
     [req setHTTPMethod:method];
     [req setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -123,9 +124,11 @@ NSTimeInterval const TIMEOUT_SECONDS = 15.0;
     if (conn){
         // Create the NSMutableData to hold the received data.
         receivedData = [[NSMutableData data] retain];
+        NSLog(@"$$$$ Received Data - RETAIN (%@)", self);
     }
     else{
         //TODO: Handle a failed connection here
+        NSLog(@"NO CONNECTION");
     }
 }
 
@@ -141,6 +144,7 @@ NSTimeInterval const TIMEOUT_SECONDS = 15.0;
     // redirect, so each time we reset the data.
     
     // receivedData is an instance variable declared elsewhere.
+    NSLog(@"$$$$ Received Data - setLength (%@)", self);
     [receivedData setLength:0];
     
     //Set the response code that we just received.

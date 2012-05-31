@@ -12,16 +12,17 @@ NSString* const IsFirstLaunchKey = @"IsFirstLaunchKey";
 
 @interface Session(){
 }
-@property (nonatomic, retain) API *req;
+//@property (nonatomic, retain) API *req;
 @property (nonatomic, retain) NSString * version;
 @end
 
 @implementation Session
 
-@synthesize req;
+//@synthesize req;
 @synthesize version;
 @synthesize sessionId;
 @synthesize delegate;
+@synthesize apiKey;
 
 
 #pragma mark Constructor/Destructor
@@ -29,7 +30,7 @@ NSString* const IsFirstLaunchKey = @"IsFirstLaunchKey";
     self = [super init];
     if (self) {
         self.version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-        self.req = [[API alloc] initWithAPIKeyAndVersion:apikey ucVersion:self.version];
+        self.apiKey = apikey;
     }
     
     return self;
@@ -37,7 +38,7 @@ NSString* const IsFirstLaunchKey = @"IsFirstLaunchKey";
 
 -(void)dealloc
 {
-    [self.req release];
+//    [self.req release];
     
     [super dealloc];
 }
@@ -45,6 +46,7 @@ NSString* const IsFirstLaunchKey = @"IsFirstLaunchKey";
 #pragma mark -
 #pragma mark Functionality
 -(void) create{
+    API *req = [[[API alloc] initWithAPIKeyAndVersion:self.apiKey ucVersion:self.version] autorelease];
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     BOOL isFirstLaunch = [prefs boolForKey:IsFirstLaunchKey];
     
@@ -54,22 +56,29 @@ NSString* const IsFirstLaunchKey = @"IsFirstLaunchKey";
     
     NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys: self.version, @"version_name", [NSNumber numberWithBool:isFirstLaunch], @"first_launch", [NSNumber numberWithInteger:[[NSDate date] timeIntervalSince1970]], @"logged_at", nil];
     NSLog(@"Session Create info: %@", data);
-    [self.req sendRequestAsync:[Routes sessionCreate] requestMethod:@"POST" delegate:self data:data];
+    [req sendRequestAsync:[Routes sessionCreate] requestMethod:@"POST" delegate:self data:data];
     [data release];
+    //[req release];
 }
 
 
 -(void)end{
-    [self.req sendRequestAsync:[[Routes sessionDestroy] stringByReplacingOccurrencesOfString:@":id" withString:[NSString stringWithFormat:@"%d", self.sessionId]] requestMethod:@"DELETE" delegate:self data:nil];
+    API *req = [[[API alloc] initWithAPIKeyAndVersion:self.apiKey ucVersion:self.version] autorelease];
+    [req sendRequestAsync:[[Routes sessionDestroy] stringByReplacingOccurrencesOfString:@":id" withString:[NSString stringWithFormat:@"%d", self.sessionId]] requestMethod:@"DELETE" delegate:self data:nil];
+    [req release];
 }
 
 -(void)endInBackground{
-    [self.req sendRequestAsync:[[Routes sessionDestroy] stringByReplacingOccurrencesOfString:@":id" withString:[NSString stringWithFormat:@"%d", self.sessionId]] requestMethod:@"DELETE" delegate:self data:[[NSDictionary alloc] initWithObjectsAndKeys:@"true", @"didEnterBackground", nil]];
+    API *req = [[[API alloc] initWithAPIKeyAndVersion:self.apiKey ucVersion:self.version] autorelease];
+    [req sendRequestAsync:[[Routes sessionDestroy] stringByReplacingOccurrencesOfString:@":id" withString:[NSString stringWithFormat:@"%d", self.sessionId]] requestMethod:@"DELETE" delegate:self data:[[NSDictionary alloc] initWithObjectsAndKeys:@"true", @"didEnterBackground", nil]];
+    [req release];
 }
 
 -(void)update:(NSDictionary *)data{
     if (self.sessionId > 0){
-        [self.req sendRequestAsync:[[Routes sessionUpdate] stringByReplacingOccurrencesOfString:@":id" withString:[NSString stringWithFormat:@"%d", self.sessionId]] requestMethod:@"PUT" delegate:self data:data];
+        API *req = [[[API alloc] initWithAPIKeyAndVersion:self.apiKey ucVersion:self.version] autorelease];
+        [req sendRequestAsync:[[Routes sessionUpdate] stringByReplacingOccurrencesOfString:@":id" withString:[NSString stringWithFormat:@"%d", self.sessionId]] requestMethod:@"PUT" delegate:self data:data];
+        //[req release];
     }else{
         NSLog(@"Session Update Aborted: Session updated called without session ID available");
     }

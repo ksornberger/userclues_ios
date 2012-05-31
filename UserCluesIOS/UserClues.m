@@ -24,6 +24,8 @@ static UserClues *uc = nil;
 ExceptionHandler *exceptionHandler = nil;
 EventQueue *queue;
 
+UIBackgroundTaskIdentifier bgTask;
+
 
 //@synthesize curSession;
 
@@ -88,7 +90,7 @@ EventQueue *queue;
         
         //Log a session_start event
         [UserClues createEvent:@"session_start"];
-        d
+        
         //Identify the device and record it as a magic event
         [uc identifyDevice];
         
@@ -121,6 +123,7 @@ EventQueue *queue;
 +(void)endInBackground{
     [UserClues log:@"Ending session due to application entering background"];
     [UserClues createEvent:@"session_end" withData:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:1], @"did_enter_background", nil]];
+
     [UserClues flush];
     [[uc getSession] endInBackground];
     [uc release];
@@ -231,6 +234,18 @@ EventQueue *queue;
 #pragma mark Delegates
 -(void)didEnterBackground:(UIApplication *)application {
     [UserClues log:@"Did enter background"];
+    
+    if (&UIApplicationDidEnterBackgroundNotification != NULL){
+        [[NSNotificationCenter defaultCenter] removeObserver:uc];
+    }
+/*
+    UIApplication *app = [UIApplication sharedApplication];
+    bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
+        [app endBackgroundTask:bgTask];
+        bgTask = UIBackgroundTaskInvalid;
+    }];
+ */   
+
     [UserClues endInBackground];
 
 }

@@ -24,7 +24,7 @@
 
 // Flag to determine whether or not UserClues will register a global exception handler to report unhandled exceptions
 // and debug information to the server for later analysis.
-#define kUCHandleExceptions YES
+#define kUCHandleExceptions NO
 
 // Flag to determine whether the application should be logging events to the UC Server (default is true)
 // You may want to set this to NO while testing your integration. Everything will function as normal but events

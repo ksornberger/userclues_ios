@@ -14,12 +14,14 @@
     NSInteger sessionId;
     id delegate;
     @private
-    API *req;
+    //API *req;
     NSString *version;
+    NSString *apiKey;
 }
 
 @property (nonatomic) NSInteger sessionId;
 @property (nonatomic, retain) id delegate;
+@property (nonatomic, retain) NSString *apiKey;
 
 
 -(id)initWithAPIKeyAndVersion:(NSString *)apikey;
