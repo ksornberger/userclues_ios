@@ -14,12 +14,16 @@
 @property (nonatomic, retain) NSString *version;
 @end
 
+//UIBackgroundTaskIdentifier bgTask;
+
+
 @implementation API
 
 @synthesize apiKey;
 @synthesize version;
 @synthesize response;
 @synthesize callback;
+@synthesize isBackgroundTask;
 
 //static API *instance = nil;
 
@@ -61,6 +65,7 @@ NSTimeInterval const TIMEOUT_SECONDS = 15.0;
     if (self) {
         self.apiKey = apikey;
         self.version = ver;
+        self.isBackgroundTask = NO;
         self.response = [[UCResponse alloc] init];
 
         
@@ -111,6 +116,7 @@ NSTimeInterval const TIMEOUT_SECONDS = 15.0;
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:TIMEOUT_SECONDS];
     [req setHTTPMethod:method];
     [req setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [req addValue:self.apiKey forHTTPHeaderField:@"UC-Authorization"];
     
     self.callback = delegate;
     
@@ -124,7 +130,7 @@ NSTimeInterval const TIMEOUT_SECONDS = 15.0;
     if (conn){
         // Create the NSMutableData to hold the received data.
         receivedData = [[NSMutableData data] retain];
-        NSLog(@"$$$$ Received Data - RETAIN (%@)", self);
+        //NSLog(@"$$$$ Received Data - RETAIN (%@)", self);
     }
     else{
         //TODO: Handle a failed connection here
@@ -144,14 +150,13 @@ NSTimeInterval const TIMEOUT_SECONDS = 15.0;
     // redirect, so each time we reset the data.
     
     // receivedData is an instance variable declared elsewhere.
-    NSLog(@"$$$$ Received Data - setLength (%@)", self);
+    //NSLog(@"$$$$ Received Data - setLength (%@)", self);
     [receivedData setLength:0];
     
     //Set the response code that we just received.
     NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)_response;
     self.response.responseCode = [httpResponse statusCode];
 }
-
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
@@ -194,7 +199,7 @@ NSTimeInterval const TIMEOUT_SECONDS = 15.0;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
-    NSLog(@"got auth challange");
+    //NSLog(@"got auth challange");
     
     if ([challenge previousFailureCount] == 0) {
         NSLog(@"Sending API key: %@", self.apiKey);

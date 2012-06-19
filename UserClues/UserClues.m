@@ -115,7 +115,8 @@ UIBackgroundTaskIdentifier bgTask;
     [UserClues log:@"Ending session"];
     [UserClues createEvent:@"session_end" withData:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:0], @"did_enter_background", nil]];
     [UserClues flush];
-    [[uc getSession] end];
+    
+    //[[uc getSession] end];
     [uc release];
     uc = nil;
 }
@@ -125,7 +126,7 @@ UIBackgroundTaskIdentifier bgTask;
     [UserClues createEvent:@"session_end" withData:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:1], @"did_enter_background", nil]];
 
     [UserClues flush];
-    [[uc getSession] endInBackground];
+    //[[uc getSession] endInBackground];
     [uc release];
     uc = nil;
 }
@@ -238,13 +239,13 @@ UIBackgroundTaskIdentifier bgTask;
     if (&UIApplicationDidEnterBackgroundNotification != NULL){
         [[NSNotificationCenter defaultCenter] removeObserver:uc];
     }
-/*
+
     UIApplication *app = [UIApplication sharedApplication];
     bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
         [app endBackgroundTask:bgTask];
         bgTask = UIBackgroundTaskInvalid;
     }];
- */   
+   
 
     [UserClues endInBackground];
 

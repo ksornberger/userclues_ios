@@ -18,6 +18,7 @@
 @interface API : NSObject{
     UCResponse *response;
     id <UCAPIRequest> callback;
+    BOOL isBackgroundTask;
 
     @private
     NSString *apiKey;
@@ -26,6 +27,7 @@
 
 @property (nonatomic, retain) UCResponse *response;
 @property (nonatomic, retain) id <UCAPIRequest> callback;
+@property (nonatomic) BOOL isBackgroundTask;
 
 //+(API *)instance;
 -(id)initWithAPIKeyAndVersion:(NSString *)apikey ucVersion:(NSString *)ver;

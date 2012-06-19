@@ -26,8 +26,8 @@
 
 -(id)initWithAPIKeyAndVersion:(NSString *)apikey;
 -(void)create;
--(void)end;
--(void)endInBackground;
+//-(void)end;
+//-(void)endInBackground;
 -(void)update:(NSDictionary *)data;
 
 -(void) didReceiveResponse:(NSString *)response responseCode:(NSInteger)code;

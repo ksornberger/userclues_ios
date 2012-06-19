@@ -70,7 +70,8 @@ static EventQueue *instance = nil;
 
 -(void)flush{
     //TODO: Lock the flush operation here?
-    if ([queue count] >0 && self.sessionId > 0 && self.isRecording){
+    //if ([queue count] >0 && self.sessionId > 0 && self.isRecording){
+    if ([queue count] >0 && self.isRecording){
         //TODO: Lock the event queue here?        
         NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys:queue, @"events", [NSNumber numberWithInt:self.sessionId], @"session_id", nil];
         req = [[API alloc] initWithAPIKeyAndVersion:self.apiKey ucVersion:0]; //TODO is this version number needed or even incorrect?
